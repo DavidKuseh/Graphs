@@ -94,14 +94,26 @@ class Graph:
                     s.push(next_vertex)
                 
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # TODO
+        # check if node is visited  
+        if visited == None:
+            visited = set()
+            
+        # if node not visited
+        if starting_vertex not in visited:
+            # mark it as visited
+            visited.add(starting_vertex)
+            print(starting_vertex)
+            # call dft_recursive on each child
+            for c in self.get_neighbors(starting_vertex):
+                self.dft_recursive(c, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
