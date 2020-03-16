@@ -24,7 +24,7 @@ class Graph:
         # check that v1 and v2 exist in the vertices dictionary
         if v1 in self.vertices and v2 in self.vertices:
             # add v2 to the vertices at v1
-            self.vertices[v1].add[v2]
+            self.vertices[v1].add(v2)
             # add v1 to the vertices at v2 bidirectional or undirected
             # self.vertices[v2].add(v1)
         # otherwise
@@ -183,7 +183,7 @@ class Graph:
                 # APPEND THE NEIGHBOR TO THE BACK
                     s.push(path_copy)
 
-    def dfs_recursive(self, starting_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -191,7 +191,32 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # TODO
+        # add starting_vertex to path if None
+        if path == None:
+            path = []
+        # add vertex to path
+        path = path + [starting_vertex]
+        # create visited set if None
+        if visited == None:
+            visited = set()  
+            
+        # check if visited
+        if starting_vertex not in visited:
+            # mark as visited
+            visited.add(starting_vertex)
+            # check if node is the destination
+            if starting_vertex == destination_vertex:
+                # if so return the path
+                return path
+            else:
+                # call dfs_recursive on neighbour nodes
+                for neighbour in self.get_neighbors(starting_vertex):
+                    # store return in variable and then return it
+                    stored_path = self.dfs_recursive(neighbour, destination_vertex, visited, path)
+                    # if the return is NOT return the path
+                    if stored_path is not None:
+                        return stored_path
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
